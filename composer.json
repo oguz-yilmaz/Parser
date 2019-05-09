@@ -1,5 +1,5 @@
 {
-    "name": "oguz-yilmaz/Parser",
+    "name": "oguz-yilmaz/parser",
     "description": "Lets you create lists of url redirects from csv file for bot Apache and Nginx and custom.",
     "authors": [
         {
