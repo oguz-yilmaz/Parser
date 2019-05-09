@@ -1,0 +1,14 @@
+{
+    "name": "oguz-yilmaz/Parser",
+    "description": "Lets you create lists of url redirects from csv file for bot Apache and Nginx and custom.",
+    "authors": [
+        {
+            "name": "Oguz Yilmaz",
+            "email": "ogz.yilmaz@yandex.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": { "Parser\\": ["lib/", "ParserStrategies/"] }
+    }
+}
