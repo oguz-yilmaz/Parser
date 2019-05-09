@@ -14,7 +14,7 @@ This library lets you create lists of url redirects from csv file.
 Use the package manager [composer](https://getcomposer.org/) to install the package.
 
 ```bash
-composer install oguz-yilmaz/Parser
+composer require oguz-yilmaz/parser
 ```
 
 ## Usage
