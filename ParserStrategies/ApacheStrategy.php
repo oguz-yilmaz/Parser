@@ -16,14 +16,20 @@ class ApacheStrategy implements StrategyInterface{
 	 */
 	public function execute( $pathFrom, $pathTo, $mainUrl="" ) {
 
-		if(preg_match("/%20/", $pathFrom)){
-			$newPathFrom = preg_replace('/%20/', ' ', $pathFrom);
-			$newPathFrom = '"'.$newPathFrom.'"';
-			$pathFrom = $newPathFrom;
-		}
+		$pathFrom = $this->replaceSpaceCharsInUrl($pathFrom);
 
 		return "Redirect 301 $pathFrom $mainUrl$pathTo";
 
+	}
+
+	private function replaceSpaceCharsInUrl($pathFrom)
+	{
+		if(preg_match("/%20/", $pathFrom)){
+			$pathFrom = preg_replace('/%20/', ' ', $pathFrom);
+			$pathFrom = '"'.$pathFrom.'"';
+		}
+
+		return $pathFrom;
 	}
 
 }
