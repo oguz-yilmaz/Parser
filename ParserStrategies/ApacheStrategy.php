@@ -16,6 +16,12 @@ class ApacheStrategy implements StrategyInterface{
 	 */
 	public function execute( $pathFrom, $pathTo, $mainUrl="" ) {
 
+		if(preg_match("/%20/", $pathFrom)){
+			$newPathFrom = preg_replace('/%20/', ' ', $pathFrom);
+			$newPathFrom = '"'.$newPathFrom.'"';
+			$pathFrom = $newPathFrom;
+		}
+
 		return "Redirect 301 $pathFrom $mainUrl$pathTo";
 
 	}
