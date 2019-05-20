@@ -1,4 +1,5 @@
 Current Site Pages,New Site URLs
-https://www.example.com/redirect.php,https://www.example.com/redirect
-https://www.example.com/redirect2.php,https://www.moldex.com/redirect2
+https://www.example.com/redirect.php?p=erwrewr,https://www.example.com/redirect
 https://www.example.com/missingpage.php,https://www.example.com/existingpage
+https://www.example.com/missingpage/missing3.php,https://www.example.com/existingpage
+https://www.example.com/redirect2.php,https://www.moldex.com/redirect2

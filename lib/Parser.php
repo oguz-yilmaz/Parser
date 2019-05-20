@@ -6,7 +6,8 @@ namespace Parser;
  * Class Parser
  * @package Parser
  */
-class Parser {
+class Parser implements ParserInterface
+{
 
 	/**
 	 * @var \Parser\File
@@ -42,6 +43,18 @@ class Parser {
 	public function __construct( File $file, StrategyInterface $strategy ) {
 		$this->file = $file;
 		$this->strategy = $strategy;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function __toString()
+	{
+		$resultString = "";
+		foreach ($this->results as $result){
+			$resultString .= $result."<br>";
+		}
+		return $resultString;
 	}
 
 	/**
@@ -104,9 +117,7 @@ class Parser {
 				{
 					$this->results[] = $this->strategy->execute($paths[0], $paths[1], $this->getMainUrl());
 				}
-
 			}
-
 		}
 
 		return $this;
@@ -142,12 +153,10 @@ class Parser {
 	}
 
 	/**
-	 * @param string $lnBreak
+	 * @return array
 	 */
-	public function _toString($lnBreak="<br>") {
-		foreach ($this->results as $result){
-			echo $result.$lnBreak;
-		}
+	public function getResults(  ) {
+		return $this->results;
 	}
 
 }

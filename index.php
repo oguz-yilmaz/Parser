@@ -2,10 +2,15 @@
 
 require "vendor/autoload.php";
 
-$file = new Parser\File("mld.csv");
-$parser = new Parser\Parser($file, new Parser\ApacheStrategy());
+use Parser\Parser;
+use Parser\File;
+use Parser\ApacheStrategy;
+use Parser\Decorators\OrderResultsDecorator;
 
-$parser->setRedirectColumns([0,1])
-	   ->setMainUrl("https://www.example.com")
-	   ->parse()
-	   ->_toString();
+$file = new File("mld.csv");
+$parser = new OrderResultsDecorator(new Parser($file, new ApacheStrategy()));
+
+$parser->setRedirectColumns([0,1]);
+$parser->setMainUrl("https://www.example.com");
+$parser->parse();
+echo $parser;

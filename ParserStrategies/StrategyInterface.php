@@ -6,7 +6,8 @@ namespace Parser;
  * Interface StrategyInterface
  * @package Parser
  */
-interface StrategyInterface {
+interface StrategyInterface
+{
 
 	/**
 	 * @param $pathFrom

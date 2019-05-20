@@ -1,11 +1,13 @@
 <?php
+
 namespace Parser;
 
 /**
  * Class NginxStrategy
  * @package Parser
  */
-class NginxStrategy implements StrategyInterface {
+class NginxStrategy implements StrategyInterface
+{
 
 	/**
 	 * @param $pathFrom
