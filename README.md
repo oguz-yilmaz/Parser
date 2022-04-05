@@ -20,13 +20,13 @@ composer require oguz-yilmaz/parser
 ## Usage
 
 ```php
-require "vendor/autoload.php";
+require 'vendor/autoload.php';
 
-$file = new Parser\File("urls.csv");
+$file = new Parser\File('urls.csv');
 $parser = new Parser\Parser($file, new Parser\ApacheStrategy());
 
 $parser->setRedirectColumns([0,1])
-       ->setMainUrl("https://www.example.com")
+       ->setMainUrl('https://www.example.com')
        ->parse()
        ->_toString();
 ```
@@ -76,11 +76,11 @@ class CustomStrategy implements Parser\StrategyInterface{
 
 }
 
-$file = new Parser\File("urls.csv");
+$file = new Parser\File('urls.csv');
 $parser = new Parser\Parser($file, new CustomStrategy ());
 
 $parser->setRedirectColumns([1,3])
-       ->setMainUrl("https://www.example.com")
+       ->setMainUrl('https://www.example.com')
        ->parse();
 
 echo $parser;

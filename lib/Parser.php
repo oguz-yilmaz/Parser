@@ -105,10 +105,10 @@ class Parser implements ParserInterface
 
     public function __toString(): string
     {
-        $resultString = "";
+        $resultString = '';
 
         foreach ($this->results as $result) {
-            $resultString .= $result . "<br>";
+            $resultString .= $result . '<br>';
         }
 
         return $resultString;
