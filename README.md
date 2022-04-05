@@ -81,8 +81,9 @@ $parser = new Parser\Parser($file, new CustomStrategy ());
 
 $parser->setRedirectColumns([1,3])
        ->setMainUrl("https://www.example.com")
-       ->parse()
-       ->_toString();
+       ->parse();
+
+echo $parser;
 ```
 
 
