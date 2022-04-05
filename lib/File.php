@@ -6,25 +6,25 @@ namespace Parser;
 
 class File 
 {
-	private array $file;
+    private array $file;
 
-	public function __construct(string $file = '')
-	{
-		$ext = pathinfo($file, PATHINFO_EXTENSION);
+    public function __construct(string $file = '')
+    {
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
 
-		if ($file && $ext =='csv') {
-			$this->file = file($file);
-		}
-	}
+        if ($file && $ext =='csv') {
+            $this->file = file($file);
+        }
+    }
 
-	public function getCsvData(): array
-	{
-		$data = [];
+    public function getCsvData(): array
+    {
+        $data = [];
 
-		foreach ($this->file as $line) {
-			$data[] = str_getcsv($line);
-		}
+        foreach ($this->file as $line) {
+            $data[] = str_getcsv($line);
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 }
