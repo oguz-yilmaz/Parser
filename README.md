@@ -27,8 +27,9 @@ $parser = new Parser\Parser($file, new Parser\ApacheStrategy());
 
 $parser->setRedirectColumns([0,1])
        ->setMainUrl('https://www.example.com')
-       ->parse()
-       ->_toString();
+       ->parse();
+
+echo $parser;
 ```
 
 ## Example Output  
@@ -43,21 +44,12 @@ This is the columns in the csv files.It accepts array with length 2. First eleme
 Sets the main url of the site so that you can get and use in execute() method of the strategy you are using.  
 Here is an example strategy that uses main url:
 ```php
-class ApacheStrategy implements StrategyInterface{
-
-    /**
-     * @param $pathFrom
-     * @param $pathTo
-     * @param string $mainUrl
-     *
-     * @return string
-     */
-    public function execute( $pathFrom, $pathTo, $mainUrl="" ) {
-
+class ApacheStrategy implements StrategyInterface 
+{
+    public function execute(string $pathFrom, string $pathTo, string $mainUrl = ''): string
+    {
         return "Redirect 301 $pathFrom $mainUrl$pathTo";
-
     }
-
 }
 
 ```
@@ -66,18 +58,17 @@ You should implement the __Parser\StrategyInterface__ interface:
 
 ```php
 
-class CustomStrategy implements Parser\StrategyInterface{
-
-    public function execute( $pathFrom, $pathTo, $mainUrl="" ) {
-
-        return "your redirect strategy for each of url";
-
+class CustomStrategy implements Parser\StrategyInterface
+{
+    public function execute(string $pathFrom, string $pathTo, string $mainUrl = ''): string
+    {
+        return 'Your redirect strategy for each of url';
     }
 
 }
 
 $file = new Parser\File('urls.csv');
-$parser = new Parser\Parser($file, new CustomStrategy ());
+$parser = new Parser\Parser($file, new CustomStrategy());
 
 $parser->setRedirectColumns([1,3])
        ->setMainUrl('https://www.example.com')
