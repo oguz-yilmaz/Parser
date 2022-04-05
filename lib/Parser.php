@@ -1,120 +1,73 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Parser;
 
-/**
- * Class Parser
- * @package Parser
- */
+use Parser\File;
+use Parser\StrategyInterface;
+
 class Parser implements ParserInterface
 {
+	private File $file;
 
-	/**
-	 * @var \Parser\File
-	 */
-	private $file;
+	private string $mainUrl;
 
-	/**
-	 * @var
-	 */
-	private $mainUrl;
+	private StrategyInterface $strategy;
 
-	/**
-	 * @var \Parser\StrategyInterface
-	 */
-	private $strategy;
+	private array $columns = [];
 
-	/**
-	 * @var array
-	 */
-	private $columns=[];
+	private array $results = [];
 
-	/**
-	 * @var array
-	 */
-	private $results=[];
-
-	/**
-	 * Parser constructor.
-	 *
-	 * @param \Parser\File $file
-	 * @param \Parser\StrategyInterface $strategy
-	 */
-	public function __construct( File $file, StrategyInterface $strategy ) {
+	public function __construct(File $file, StrategyInterface $strategy) 
+	{
 		$this->file = $file;
 		$this->strategy = $strategy;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function __toString()
+	public function setRedirectColumns(array $columns = []): self
 	{
-		$resultString = "";
-		foreach ($this->results as $result){
-			$resultString .= $result."<br>";
-		}
-		return $resultString;
-	}
-
-	/**
-	 * @param array $columns
-	 *
-	 * @return $this
-	 */
-	public function setRedirectColumns($columns=[])
-	{
-		if($this->checkColumnsArrayLength($columns))
-		{
+		if ($this->checkColumnsArrayLength($columns)) {
 			$this->columns = $columns;
 		}
+
 		return $this;
 	}
 
-	/**
-	 * @param $url
-	 */
-	public function setMainUrl( $url ) {
+	public function setMainUrl(string $url): self
+	{
 		$this->mainUrl = $url;
+
 		return $this;
 	}
 
-	/**
-	 * @return mixed
-	 */
-	public function getMainUrl() {
+	public function getMainUrl(): string
+	{
 		return $this->mainUrl;
 	}
 
-	/**
-	 * @param $columns
-	 *
-	 * @return bool
-	 */
-	public function checkColumnsArrayLength($columns) {
-		if(is_array($columns) && !empty($columns) && sizeof($columns)==2){
+	public function checkColumnsArrayLength($columns): bool
+	{
+		if (is_array($columns) && !empty($columns) && sizeof($columns) === 2) {
 			return true;
 		}
+
 		return false;
 	}
 
-	/**
-	 * Call this function after setRedirectColumns()
-	 *
-	 * @return $this
-	 */
-	public function parse()
+	public function parse(): self
 	{
 		$datas = $this->file->getCsvData();
 
-		foreach ($datas as $i => $data){
-			if($i == 0) continue;
+		foreach ($datas as $i => $data) {
+			if ($i === 0) {
+				continue;
+			}
 
 			$paths = $this->getPath($data);
 
-			if($this->isRedirectedUrlValid($paths[1])){
-				if(!in_array($this->strategy->execute($paths[0], $paths[1]), $this->results))
-				{
+			if ($this->isRedirectedUrlValid($paths[1])) {
+				if (!in_array($this->strategy->execute($paths[0], $paths[1]), $this->results)) {
 					$this->results[] = $this->strategy->execute($paths[0], $paths[1], $this->getMainUrl());
 				}
 			}
@@ -123,26 +76,24 @@ class Parser implements ParserInterface
 		return $this;
 	}
 
-	/**
-	 * @param $url
-	 *
-	 * @return bool
-	 */
-	public function isRedirectedUrlValid($url) {
+	public function getResults(): array
+	{
+		return $this->results;
+	}
+
+	private function isRedirectedUrlValid(string $url): bool
+	{
 		$r = parse_url($url);
 
-		if($r !== false){
+		if ($r !== false) {
 			return true;
 		}
+
 		return false;
 	}
 
-	/**
-	 * @param $data
-	 *
-	 * @return array
-	 */
-	public function getPath($data) {
+	private function getPath(array $data): array
+	{
 		$url0 = parse_url($data[$this->columns[0]]);
 		$path1 = $url0['path'];
 
@@ -152,11 +103,14 @@ class Parser implements ParserInterface
 		return [$path1, $path2];
 	}
 
-	/**
-	 * @return array
-	 */
-	public function getResults(  ) {
-		return $this->results;
-	}
+	public function __toString(): string
+	{
+		$resultString = "";
 
+		foreach ($this->results as $result) {
+			$resultString .= $result . "<br>";
+		}
+
+		return $resultString;
+	}
 }

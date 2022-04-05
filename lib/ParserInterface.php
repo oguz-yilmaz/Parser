@@ -1,29 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Parser;
 
-/**
- * Interface ParserInterface
- * @package Parser
- */
 interface ParserInterface
 {
-	/**
-	 * @return mixed
-	 */
-	public function parse();
+	public function parse(): self;
 
-	/**
-	 * @param $columns
-	 *
-	 * @return mixed
-	 */
-	public function setRedirectColumns($columns);
+	public function setRedirectColumns(array $columns): self;
 
-	/**
-	 * @param $url
-	 *
-	 * @return mixed
-	 */
-	public function setMainUrl($url);
+	public function setMainUrl(string $url): self;
 }

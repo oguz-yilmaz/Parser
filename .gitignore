@@ -9,6 +9,7 @@ Session.vim
 tmtags
 Thumbs.db
 Desktop.ini
+moldex-parser.php
 
 # ignore Composer downloads
 /vendor/*

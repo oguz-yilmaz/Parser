@@ -1,38 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Parser;
 
-/**
- * Class ApacheStrategy
- * @package Parser
- */
 class ApacheStrategy implements StrategyInterface
 {
+	public function execute(string $pathFrom, string $pathTo, string $mainUrl = ""): string
+	{
+		$parsedPathFrom = $this->removeQueryString($pathFrom);
+		$pathFrom = $this->replaceSpaceCharsInUrl(parsedPathFrom);
 
-	/**
-	 * @param $pathFrom
-	 * @param $pathTo
-	 * @param string $mainUrl
-	 *
-	 * @return string
-	 */
-	public function execute( $pathFrom, $pathTo, $mainUrl="" ) {
+		$parsedPathTo = $this->removeQueryString($pathTo);
 
-		$pathFrom = $this->replaceSpaceCharsInUrl($this->removeQueryString($pathFrom));
-		$pathTo = $this->removeQueryString($pathTo);
-
-		return "Redirect 301 $pathFrom $mainUrl$pathTo";
-
+		return "Redirect 301 $pathFrom $mainUrl$parsedPathTo";
 	}
 
-	/**
-	 * @param $pathFrom
-	 *
-	 * @return mixed|string
-	 */
-	private function replaceSpaceCharsInUrl($pathFrom)
+	private function replaceSpaceCharsInUrl(string $pathFrom): string
 	{
-		if(preg_match("/%20/", $pathFrom)){
+		if (preg_match("/%20/", $pathFrom)) {
 			$pathFrom = preg_replace('/%20/', ' ', $pathFrom);
 			$pathFrom = '"'.$pathFrom.'"';
 		}
@@ -40,12 +26,9 @@ class ApacheStrategy implements StrategyInterface
 		return $pathFrom;
 	}
 
-	/**
-	 * @param $path
-	 *
-	 * @return mixed
-	 */
-	private function removeQueryString( $path ) {
+
+	private function removeQueryString(string $path): string
+	{
 		return preg_replace('/\?.*/', '', $path);
 	}
 

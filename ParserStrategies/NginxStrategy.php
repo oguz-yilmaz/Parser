@@ -1,27 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Parser;
 
-/**
- * Class NginxStrategy
- * @package Parser
- */
 class NginxStrategy implements StrategyInterface
 {
-
-	/**
-	 * @param $pathFrom
-	 * @param $pathTo
-	 * @param string $mainUrl
-	 *
-	 * @return string
-	 */
-	public function execute( $pathFrom, $pathTo, $mainUrl=""  ) {
-
-		return " location ~ ^{$pathFrom}$ {
+	public function execute(string $pathFrom, string $pathTo, string $mainUrl=""): string
+	{
+		return "location ~ ^{$pathFrom}$ {
       			return 301 \$scheme://\$server_name{$pathTo};
 			}";
-
 	}
-
 }

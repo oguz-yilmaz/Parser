@@ -1,41 +1,31 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Parser;
 
-/**
- * Class File
- * @package Parser
- */
-class File {
-	/**
-	 * @var array|bool
-	 */
-	private $file;
+class File 
+{
+	private array $file;
 
-	/**
-	 * File constructor.
-	 *
-	 * @param string $file
-	 */
-	public function __construct( $file="" )
+	public function __construct(string $file = '')
 	{
 		$ext = pathinfo($file, PATHINFO_EXTENSION);
 
-		if($file && $ext =="csv"){
+		if ($file && $ext =='csv') {
 			$this->file = file($file);
 		}
 
 	}
 
-	/**
-	 * @return array
-	 */
-	public function getCsvData()
+	public function getCsvData(): array
 	{
 		$data = [];
 
 		foreach ($this->file as $line) {
 			$data[] = str_getcsv($line);
 		}
+
 		return $data;
 	}
 }

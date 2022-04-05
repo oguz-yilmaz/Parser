@@ -30,8 +30,6 @@ $parser->setRedirectColumns([0,1])
 	   ->parse()
 	   ->_toString();
 ```
-## Example csv file  
-![Example csv file that you load with File object](img/example-csv.PNG)  
 
 ## Example Output  
 ![Example OUTPUT](./img/example-output.PNG) 

@@ -1,21 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Parser;
 
-/**
- * Interface StrategyInterface
- * @package Parser
- */
 interface StrategyInterface
 {
-
-	/**
-	 * @param $pathFrom
-	 * @param $pathTo
-	 * @param string $mainUrl
-	 *
-	 * @return mixed
-	 */
-	public function execute($pathFrom, $pathTo, $mainUrl="");
-
+	public function execute(string $pathFrom, string $pathTo, string $mainUrl = "");
 }
