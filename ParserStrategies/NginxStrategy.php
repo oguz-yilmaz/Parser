@@ -6,10 +6,10 @@ namespace Parser;
 
 class NginxStrategy implements StrategyInterface
 {
-	public function execute(string $pathFrom, string $pathTo, string $mainUrl=""): string
-	{
-		return "location ~ ^{$pathFrom}$ {
-      			return 301 \$scheme://\$server_name{$pathTo};
-			}";
-	}
+    public function execute(string $pathFrom, string $pathTo, string $mainUrl=""): string
+    {
+        return "location ~ ^{$pathFrom}$ {
+                  return 301 \$scheme://\$server_name{$pathTo};
+            }";
+    }
 }

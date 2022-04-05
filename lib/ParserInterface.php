@@ -6,9 +6,9 @@ namespace Parser;
 
 interface ParserInterface
 {
-	public function parse(): self;
+    public function parse(): self;
 
-	public function setRedirectColumns(array $columns): self;
+    public function setRedirectColumns(array $columns): self;
 
-	public function setMainUrl(string $url): self;
+    public function setMainUrl(string $url): self;
 }

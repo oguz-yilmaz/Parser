@@ -8,5 +8,5 @@ use Parser\ParserInterface;
 
 abstract class AbstractDecorator implements ParserInterface
 {
-	abstract function parse();
+    abstract function parse();
 }

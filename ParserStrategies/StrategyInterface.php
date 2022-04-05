@@ -6,5 +6,5 @@ namespace Parser;
 
 interface StrategyInterface
 {
-	public function execute(string $pathFrom, string $pathTo, string $mainUrl = "");
+    public function execute(string $pathFrom, string $pathTo, string $mainUrl = "");
 }

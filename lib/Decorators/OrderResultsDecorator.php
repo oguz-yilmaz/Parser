@@ -8,75 +8,75 @@ use Parser\ParserInterface;
 
 class OrderResultsDecorator extends AbstractDecorator
 {
-	private ParserInterface $parser;
+    private ParserInterface $parser;
 
-	private array $results;
+    private array $results;
 
-	public function __construct(ParserInterface $parser) 
-	{
-		$this->parser = $parser;
-	}
+    public function __construct(ParserInterface $parser) 
+    {
+        $this->parser = $parser;
+    }
 
-	public function setRedirectColumns(array $columns): self
-	{
-		$this->parser->setRedirectColumns($columns);
+    public function setRedirectColumns(array $columns): self
+    {
+        $this->parser->setRedirectColumns($columns);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function setMainUrl(string $url)
-	{
-		$this->parser->setMainUrl($url);
-	}
+    public function setMainUrl(string $url)
+    {
+        $this->parser->setMainUrl($url);
+    }
 
-	public function parse(): array
-	{
-		$this->parser->parse();
+    public function parse(): array
+    {
+        $this->parser->parse();
 
-		$this->results = $this->parser->getResults();
+        $this->results = $this->parser->getResults();
 
-		return $this->orderResults();
-	}
+        return $this->orderResults();
+    }
 
-	private function orderResults(): array
-	{
-		$sizedArray = $this->assignStringSizeToItems();
+    private function orderResults(): array
+    {
+        $sizedArray = $this->assignStringSizeToItems();
 
-		krsort($sizedArray);
+        krsort($sizedArray);
 
-		return $this->results = $sizedArray;
-	}
+        return $this->results = $sizedArray;
+    }
 
-	public function assignStringSizeToItems(): array
-	{
-		$newSizeAssignedArray = [];
+    public function assignStringSizeToItems(): array
+    {
+        $newSizeAssignedArray = [];
 
-		foreach ($this->results as $result) {
-			$redirectPart = $this->getFirtsPartOfRedirectString($result);
-			$newSizeAssignedArray[strlen($redirectPart)] = $result;
-		}
+        foreach ($this->results as $result) {
+            $redirectPart = $this->getFirtsPartOfRedirectString($result);
+            $newSizeAssignedArray[strlen($redirectPart)] = $result;
+        }
 
-		return $newSizeAssignedArray;
-	}
+        return $newSizeAssignedArray;
+    }
 
-	private function getFirtsPartOfRedirectString(string $path): string
-	{
-		$string = explode(' ', $path);
-		array_pop($string);
+    private function getFirtsPartOfRedirectString(string $path): string
+    {
+        $string = explode(' ', $path);
+        array_pop($string);
 
-		$string = implode(' ', $string);
+        $string = implode(' ', $string);
 
-		return $string;
-	}
+        return $string;
+    }
 
-	public function __toString(): string
-	{
-		$resultString = '';
+    public function __toString(): string
+    {
+        $resultString = '';
 
-		foreach ($this->results as $result) {
-			$resultString .= $result . '<br>';
-		}
+        foreach ($this->results as $result) {
+            $resultString .= $result . '<br>';
+        }
 
-		return $resultString;
-	}
+        return $resultString;
+    }
 }
