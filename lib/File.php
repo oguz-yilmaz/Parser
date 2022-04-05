@@ -15,7 +15,6 @@ class File
 		if ($file && $ext =='csv') {
 			$this->file = file($file);
 		}
-
 	}
 
 	public function getCsvData(): array
